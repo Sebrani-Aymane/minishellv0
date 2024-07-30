@@ -89,20 +89,87 @@ char	**split(char *str, char sep)
 	strs[n] = NULL;
 	return (strs);
 }
+void	copy_it(char *dest, char *src)
+{
+	while (*src)
+		*(dest++) = *(src++);
+	*dest = '\0';
+}
+char	*str_joiner(char *s1, char *s2)
+{
+	char	*ret;
 
+	if (!s1)
+		return (strdup(s2));
+	ret = malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
+	if (!ret)
+		return (NULL);
+	copy_it(ret, s1);
+	copy_it(ret + strlen(s1), s2);
+	return (ret);
+}
+void excute_builtins(char* builtin,char **av)
+{
+	int i = 0;
+	if (strcmp(builtin,"echo") == 0)
+		return(printf("%s",)0);
+
+}
+void echo(char **av)
+{
+	int i =1;
+	char *output;
+	while (av[i])
+	{
+		output = str_joiner()
+	}
+}
 int	main(int ac, char **av, char **envp)
 {
 	int i=0;
 	(void)ac;
+	char *to_excute;
 char **paths;
-paths = split(get_path(enpvp, ':'))
-while (av[i])
+char *command_path;
+
+command_path = malloc(strlen(av[1] + 2));
+if (!command_path)
+	return(printf("error command path\n"),1);
+command_path  = str_joiner("/",av[1]);
+paths = split(get_path(envp), ':');
+if (!paths)
+	return(printf("ERROR SPLIT\n"),1);
+while(paths[i])
 {
-if (access(, F_OK | X_OK) == 0)
+	to_excute = malloc(strlen(paths[i] + strlen(command_path)));
+	to_excute = str_joiner(paths[i],command_path);
+	if (access(to_excute, X_OK) == 0)
+	{
+	printf("%s\n",to_excute);
+		execve(to_excute, av +1, envp);
+	}
+	else
+		free(to_excute);
+		i++;
+}
+free(paths);
+free(command_path);
+
+int j =0;
+char **builtins;
+while (av[1])
 {
-	execve("/bin/ls", args, envp);
+	builtins = split("cd echo pwd export unset env exit", ' ');
+	if (strcmp(av[1],builtins[j]) == 0)
+		excute_builtins(av[1],av);
+	j++;
+}
+j = 0;
+while(builtins[j]) 
+{
+	free(builtins[j]);
+	j++;
 }
 
-}
-
+return(0);
 }
