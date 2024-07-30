@@ -1,7 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/syslimits.h>
 #include <unistd.h>
+#include <limits.h>
 
 char	*get_path(char **envp)
 {
@@ -108,22 +110,52 @@ char	*str_joiner(char *s1, char *s2)
 	copy_it(ret + strlen(s1), s2);
 	return (ret);
 }
-void excute_builtins(char* builtin,char **av)
-{
-	int i = 0;
-	if (strcmp(builtin,"echo") == 0)
-		return(printf("%s",)0);
-
-}
-void echo(char **av)
+void echoo(char **av)
 {
 	int i =1;
-	char *output;
-	while (av[i])
+
+	if (strcmp(av[2],"-n") == 0)
+	{	
+		while (av[i+1])
+		{
+			printf("%s",av[i]);
+			i++;
+		}
+	}
+	else
 	{
-		output = str_joiner()
+		while (av[i])
+		{
+			printf("%s",av[i]);
+			i++;
+		}
+		printf("/n");
 	}
 }
+void pwdd(int a)
+{
+	char *pwd = NULL;
+	(void) a;
+	getcwd(pwd,PATH_MAX);
+	printf("%s",pwd);
+}
+void envpp(char **envp)
+{
+	int i=0;
+	while (envp[i])
+	printf("%s\n",envp[i++]);
+}
+void excute_builtins(char* builtin,char **av,char **envp)
+{
+	if (strcmp(builtin,"echo") == 0)
+		echoo(av+1);
+	else if (strcmp(builtin, "pwd") == 0)
+		pwdd(1);
+	else if (strcmp(builtin,"env"))
+		envpp(envp);
+
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	int i=0;
@@ -145,7 +177,6 @@ while(paths[i])
 	to_excute = str_joiner(paths[i],command_path);
 	if (access(to_excute, X_OK) == 0)
 	{
-	printf("%s\n",to_excute);
 		execve(to_excute, av +1, envp);
 	}
 	else
@@ -161,7 +192,7 @@ while (av[1])
 {
 	builtins = split("cd echo pwd export unset env exit", ' ');
 	if (strcmp(av[1],builtins[j]) == 0)
-		excute_builtins(av[1],av);
+		excute_builtins(av[1],av,envp);
 	j++;
 }
 j = 0;
