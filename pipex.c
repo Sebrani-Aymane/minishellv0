@@ -145,6 +145,8 @@ void envpp(char **envp)
 	while (envp[i])
 	printf("%s\n",envp[i++]);
 }
+//expoort get the variable value write that into a file change if needed read form that file
+
 void excute_builtins(char* builtin,char **av,char **envp)
 {
 	if (strcmp(builtin,"echo") == 0)
@@ -153,6 +155,9 @@ void excute_builtins(char* builtin,char **av,char **envp)
 		pwdd(1);
 	else if (strcmp(builtin,"env"))
 		envpp(envp);
+	else if (strcmp(builtin,"export"))
+		exportt(envp);
+
 
 }
 
