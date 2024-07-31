@@ -24,9 +24,9 @@ int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
 char	**split(char *str, char sep);
 void	clear_strss(char **strs, int n);
+void exportt(char **env,char **var);
 void free_double(char **str);
 int excutefilepath(char **av,char **envp);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
-char **prompt();
 #endif

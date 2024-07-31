@@ -34,4 +34,11 @@ void envpp(char **envp)
 	while (envp[i])
 	printf("%s\n",envp[i++]);
 }
-void export(env_vars **env_listed)
+void export(char **env,char **var)
+{
+	env_vars	hello
+	if (!var[2])
+		envpp(env);
+	else
+
+}

@@ -2,14 +2,16 @@
 
 void excute_builtins(char* builtin,char **av,char **envp)
 {
+	char **tmp;
+	tmp = NULL;
 	if (strcmp(builtin,"echo") == 0)
 		echoo(av+1);
 	else if (strcmp(builtin, "pwd") == 0)
 		pwdd(1);
 	else if (strcmp(builtin,"env"))
 		envpp(envp);
-	//else if (strcmp(builtin,"export"))
-		//exportt(envp);
+	else if (strcmp(builtin,"export"))
+		exportt(envp,av);
 }
 int excutefilepath(char **av,char **envp)
 {

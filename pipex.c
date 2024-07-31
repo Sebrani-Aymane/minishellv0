@@ -9,15 +9,12 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	if (excutefilepath(av,envp) == 0)
 	{
-		while (av[0])
-	{
 		builtins = split("cd echo pwd export unset env exit", ' ');
-		if (strcmp(av[0],builtins[j]) == 0)
+		while (builtins[j++])
+		if (strcmp(av[1],builtins[j]) == 0)
 			excute_builtins(av[0],av,envp);
-		j++;
 	}
 	free_double(builtins);
 	return(0);
-	}
 }
 
