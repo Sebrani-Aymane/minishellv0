@@ -34,11 +34,29 @@ void envpp(char **envp)
 	while (envp[i])
 	printf("%s\n",envp[i++]);
 }
-void export(char **env,char **var)
-{
-	env_vars	hello
-	if (!var[2])
-		envpp(env);
-	else
 
+char **exportt_basic(char **envp, char **av)
+{
+    env_vars **list;
+    env_vars *new_var;
+    char **temp;
+
+    list = list_init(envp);
+    if (!list)
+        return NULL;
+    temp = split(av[2], '=');
+    if (!temp)
+        return NULL;
+    while ((*list)->next)
+        list = &((*list)->next);
+    new_var = malloc(sizeof(env_vars));
+    if (!new_var) {
+        free(temp);
+        return NULL; 
+    }
+    new_var->vars = temp[0]; 
+    new_var->next = NULL;
+    (*list)->next = new_var;
+    free(temp);
+    return (envp); 
 }
