@@ -6,34 +6,30 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/02 07:01:11 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/03 06:06:33 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+#include <sys/_types/_size_t.h>
 
 void execute_builtins(char* builtin, char **av, char **envp)
 {
-	char **new_envp;
-	int a = 0;
+	env_vars **list;
 
-	new_envp = malloc (sizeof(char **));
-	if (!new_envp)
+	list = list_init(envp);
+	if (!list)
 		return;
-    if (strcmp(builtin, "echo") == 0) 
+    if (strcmp(builtin, "echo") == 0)
         echoo(av + 1);
     if (strcmp(builtin, "pwd") == 0) 
         pwdd(1);
-    if (strcmp(builtin, "export") == 0) 
-	{
-        new_envp = exportt_basic(envp, av);
-		a = -1;
-	}
-    if (strcmp(builtin, "env") == 0 && !a)
-    	envpp(envp);
-	else
-		envp = new_envp;
+    if (strcmp(builtin, "export") == 0)
+	    list = exportt_basic((*list)->env, av);
+    if (strcmp(builtin, "env") == 0)
+    	envpp((*list)->env);
+		
 	
 
 }

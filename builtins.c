@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <stdio.h>
 void echoo(char **av)
 {
 	int i =1;
@@ -31,11 +32,13 @@ void pwdd(int a)
 void envpp(char **envp)
 {
 	int i=0;
-	while (envp[i])
-	printf("%s\n",envp[i++]);
+	if (!envp)
+		return;
+	while (envp && envp[i] )
+		printf("%s\n",envp[i++]);
 }
 
-char **exportt_basic(char **envp, char **av)
+env_vars **exportt_basic(char **envp, char **av)
 {
     env_vars **list;
     env_vars *new_var;
@@ -54,9 +57,10 @@ char **exportt_basic(char **envp, char **av)
         free(temp);
         return NULL; 
     }
-    new_var->vars = temp[0]; 
+    new_var->vars = temp[0];
+	new_var->var_value = temp[1];
     new_var->next = NULL;
     (*list)->next = new_var;
     free(temp);
-    return (envp); 
+    return (list);
 }

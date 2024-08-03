@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/02 06:53:29 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/03 05:06:13 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_lstadd_front(env_vars **lst, env_vars *next);
 char	**split(char *str, char sep);
 void	clear_strss(char **strs, int n);
 env_vars **list_init(char **variables);
-char **exportt_basic(char **env,char **var);
+env_vars **exportt_basic(char **env,char **var);
 void free_double(char **str);
 int excutefilepath(char **av,char **envp);
 void	copy_it(char *dest, char *src);

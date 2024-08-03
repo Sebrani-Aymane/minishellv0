@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:23:32 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/02 06:11:44 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/03 06:01:30 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ env_vars **list_init(char **variables)
 	if (!head)
 		return(NULL);
 	*head = list;
+	if (!variables || *variables)
+		return(NULL);
 	while(variables[i])
 	{
 		splited = split(variables[i], '=');

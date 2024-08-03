@@ -32,14 +32,164 @@ int	count_words(char *str, char c)
 char	*return_word(char *str, char c)
 {
 	char	*ret;
-	int		count;
-	int		i;
+	size_t		count;
+	size_t		i;
 
 	i = 0;
 	count = 0;
 	while (str[count] != c && str[count])
 		count++;
-	ret = malloc(sizeof(char) * (count + 1));
+	ret = malloc((count + 2
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	);
 	if (!ret)
 		return (NULL);
 	while (i < count)
