@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 02:30:30 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/05 08:40:54 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ typedef struct env_vars_t{
 	struct env_vars_t *next;
 }  env_vars;
 void	clear_strss(char **strs, int n);
-void execute_builtins(char* builtin, char **av, char **envp);
+env_vars *execute_builtins(char* builtin, char **av,env_vars *list);
 void echoo(char **av);
 void pwdd(int a);
-void envpp(char **envp);
+void envpp(char **env);
 int	ft_strlen(char *str);
 char	*get_path(char **envp);
 int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
+char **joker(env_vars *list);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
 env_vars	*ft_lstlast(env_vars *lst);
 char	**split(char *str, char sep);
@@ -50,5 +51,6 @@ void free_double(char **str);
 void excutefilepath(char **av,char *path,char **env);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
-
+int already_var(env_vars *list,char *str);
+env_vars *update_value(env_vars *list,char **str);
 #endif

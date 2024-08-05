@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 02:39:44 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/05 08:43:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 #include "minishell.h"
 #include <sys/_types/_size_t.h>
 
-void execute_builtins(char* builtin, char **av, char **envp)
+env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
 {
-	env_vars *list;
+	char **env;
 	
+	env = joker(list);
     if (strcmp(builtin, "echo") == 0)
         echoo(av + 1);
     if (strcmp(builtin, "pwd") == 0) 
         pwdd(1);
     if (strcmp(builtin, "export") == 0)
-	    list = exportt_basic(envp, av);
-    if (strcmp(builtin, "env") == 0)
-    	envpp(envp);
-
+	{
+	    list = exportt_basic(env, av);
+		if (!(av[1]))
+			envpp(env);
+	}
+	if (strcmp(builtin, "env") == 0)
+    	envpp(env);
+return(list);
 }
 void excutefilepath(char **av,char *path,char **env)
 {

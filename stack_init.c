@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:23:32 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 02:35:08 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/05 06:41:54 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ env_vars *list_init(char **variables)
     int i = 0;
     char **splited;
 
-    if(variables == NULL && variables[i] == NULL)
-        return NULL;
+	if (variables == NULL || variables[i] == NULL)
+    	return NULL;
     while (variables[i])
     {
         splited = split(variables[i], '=');
@@ -90,4 +90,3 @@ env_vars *list_init(char **variables)
     }
     return list;
 }
-

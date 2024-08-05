@@ -28,7 +28,9 @@ char	**split(char *str, char sep)
 	return (strs);
 }
 void	copy_it(char *dest, char *src)
-{
+{	
+	if(!src)
+		return;
 	while (*src)
 		*(dest++) = *(src++);
 	*dest = '\0';
@@ -39,7 +41,7 @@ char	*str_joiner(char *s1, char *s2)
 
 	if (!s1)
 		return (strdup(s2));
-	ret = malloc(sizeof(char) * (strlen(s1) + strlen(s2) + 1));
+	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ret)
 		return (NULL);
 	copy_it(ret, s1);
@@ -54,4 +56,32 @@ int	ft_strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
+char **joker(env_vars *list)
+{
+    int i = 0;
+    char **ret = NULL;
+    env_vars *temp;
+    char *str;
+    temp = list;
+    while (list)
+    {
+        list = list->next;
+        i++;
+    }
+    list = temp;
+    ret = calloc((i + 1) , sizeof(char *));
+	if (!ret)
+		return NULL;
+	int j = 0;
+    while (list && j < i)
+    {
+        str = str_joiner(list->vars, "=");
+        ret[j] = str_joiner(str, list->var_value);
+        free(str); 
+		j++;
+        list = list->next;
+    }
+	ret[j] = NULL;
+    return ret; 
 }
