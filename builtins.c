@@ -2,9 +2,9 @@
 #include <stdio.h>
 void echoo(char **av)
 {
-	int i =1;
+	int i =0;
 
-	if (strcmp(av[2],"-n") == 0)
+	if (strcmp(av[0],"-n") == 0)
 	{	
 		while (av[i+1])
 		{
@@ -32,15 +32,15 @@ void pwdd(int a)
 void envpp(char **envp)
 {
 	int i=0;
-	if (!envp)
+	if (!envp || !(*envp))
 		return;
 	while (envp && envp[i] )
 		printf("%s\n",envp[i++]);
 }
 
-env_vars **exportt_basic(char **envp, char **av)
+env_vars *exportt_basic(char **envp, char **av)
 {
-    env_vars **list;
+    env_vars *list;
     env_vars *new_var;
     char **temp;
 
@@ -50,17 +50,16 @@ env_vars **exportt_basic(char **envp, char **av)
     temp = split(av[2], '=');
     if (!temp)
         return NULL;
-    while ((*list)->next)
-        list = &((*list)->next);
+	list = ft_lstlast(list);
     new_var = malloc(sizeof(env_vars));
-    if (!new_var) {
+    if (!new_var)
+	{
         free(temp);
         return NULL; 
     }
     new_var->vars = temp[0];
 	new_var->var_value = temp[1];
     new_var->next = NULL;
-    (*list)->next = new_var;
-    free(temp);
+    (list)->next = new_var;
     return (list);
 }

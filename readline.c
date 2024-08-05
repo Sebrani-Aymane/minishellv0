@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/03 06:06:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/05 02:39:44 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,44 @@
 
 void execute_builtins(char* builtin, char **av, char **envp)
 {
-	env_vars **list;
-
-	list = list_init(envp);
-	if (!list)
-		return;
+	env_vars *list;
+	
     if (strcmp(builtin, "echo") == 0)
         echoo(av + 1);
     if (strcmp(builtin, "pwd") == 0) 
         pwdd(1);
     if (strcmp(builtin, "export") == 0)
-	    list = exportt_basic((*list)->env, av);
+	    list = exportt_basic(envp, av);
     if (strcmp(builtin, "env") == 0)
-    	envpp((*list)->env);
-		
-	
+    	envpp(envp);
 
 }
-
-int excutefilepath(char **av,char **envp)
+void excutefilepath(char **av,char *path,char **env)
 {
 	char *to_excute;
 	int i=0;
 	char **paths;
 	char *command_path;
 
-	command_path = malloc(strlen(av[1] + 2));
+	int lenght = ft_strlen(av[0]);
+	command_path = malloc(lenght);
 	if (!command_path)
-		return(printf("error command path\n"),1);
-	command_path  = str_joiner("/",av[1]);
-	paths = split(get_path(envp), ':');
+		return;
+	command_path  = str_joiner("/",av[0]);
+	int lenght1=ft_strlen(command_path);
+	paths = split(path, ':');
 	if (!paths)
-		return(printf("ERROR SPLIT\n"),1);
+		return;
 	while(paths[i])
 	{
-		to_excute = malloc(strlen(paths[i] + strlen(command_path)));
+		lenght =ft_strlen(paths[i]);
+		to_excute = malloc(lenght + lenght1);
+		if (!to_excute)
+			return;
 		to_excute = str_joiner(paths[i],command_path);
 		if (access(to_excute, X_OK) == 0)
 		{
-			execve(to_excute, av +1, envp);
+			execve(to_excute, av, env);
 		}
 		else
 			free(to_excute);
@@ -62,7 +61,7 @@ int excutefilepath(char **av,char **envp)
 	}
 	free(paths);
 	free(command_path);
-	return(0);
+	return;
 
 }
 void free_double(char **str)

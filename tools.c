@@ -2,16 +2,19 @@
 char	*get_path(char **envp)
 {
 	char	*path;
-
-	while (*envp && strncmp(*envp, "PATH=", 5) != 0)
-		envp++;
-	if (!*envp)
+	int i=0;
+	if (!envp || !(*envp))
+		return(NULL);
+	while (envp[i] && strncmp(envp[i], "PATH=", 5) != 0)
+		i++;
+	if (!envp[i])
 		return (NULL);
-	path  = strdup(*envp + 5);
+	path  = strdup(envp[i] + 5);
 	if (!path)
 		return (NULL);
 	return (path);
 }
+
 int	count_words(char *str, char c)
 {
 	int	count;
@@ -37,159 +40,11 @@ char	*return_word(char *str, char c)
 
 	i = 0;
 	count = 0;
-	while (str[count] != c && str[count])
+	if (!str)
+		return (NULL);
+	while (str[count] != c && str[count] != '\0')
 		count++;
-	ret = malloc((count + 2
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	);
+	ret = malloc((count + 2));
 	if (!ret)
 		return (NULL);
 	while (i < count)

@@ -46,3 +46,12 @@ char	*str_joiner(char *s1, char *s2)
 	copy_it(ret + strlen(s1), s2);
 	return (ret);
 }
+int	ft_strlen(char *str)
+{
+	int i=0;
+	if (!str)
+		return(0);
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}

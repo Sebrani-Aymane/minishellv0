@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/03 05:06:13 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/05 02:30:30 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #include <sys/syslimits.h>
 #include <unistd.h>
 #include <limits.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 typedef struct env_vars_t{
 	char *vars;
@@ -33,16 +35,19 @@ void execute_builtins(char* builtin, char **av, char **envp);
 void echoo(char **av);
 void pwdd(int a);
 void envpp(char **envp);
+int	ft_strlen(char *str);
 char	*get_path(char **envp);
 int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
+env_vars	*ft_lstlast(env_vars *lst);
 char	**split(char *str, char sep);
 void	clear_strss(char **strs, int n);
-env_vars **list_init(char **variables);
-env_vars **exportt_basic(char **env,char **var);
+env_vars *list_init(char **variables);
+void	ft_lstadd_back(env_vars **lst, env_vars *last);
+env_vars *exportt_basic(char **env,char **var);
 void free_double(char **str);
-int excutefilepath(char **av,char **envp);
+void excutefilepath(char **av,char *path,char **env);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
 
