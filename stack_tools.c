@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 09:26:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/05 23:30:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ env_vars *export_plus(char **envp,char **av)
 	list = tmp;
     return (list);
 }
-*/
 int already_var(env_vars *list,char *str)
 {
 	while (list && list ->next)
@@ -87,4 +86,4 @@ env_vars *update_value(env_vars *list,char **str)
 		list = list->next;
 	list->var_value = strdup(str[1]);
 	return (tmp);
-}
+}*/

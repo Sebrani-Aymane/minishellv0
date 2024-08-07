@@ -71,4 +71,11 @@ env_vars *exportt_basic(char **envp, char **av)
 	list = tmp;
     return (list);
 }
-
+int	chdirr(char **env,char **av)
+{
+	if(!av[1])
+		return(chdir(get_path(env,"HOME")),0);
+	else if(strcmp(av[0],"..") == 0)
+		return(chdir(".."),0);
+	return(1);
+}

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 08:40:54 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/07 02:44:00 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void echoo(char **av);
 void pwdd(int a);
 void envpp(char **env);
 int	ft_strlen(char *str);
-char	*get_path(char **envp);
+char	*get_path(char **envp,char *str);
 int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
 char **joker(env_vars *list);
@@ -51,6 +51,7 @@ void free_double(char **str);
 void excutefilepath(char **av,char *path,char **env);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
-int already_var(env_vars *list,char *str);
-env_vars *update_value(env_vars *list,char **str);
+int already_var(env_vars *list, char *str);
+env_vars *update_value(env_vars *list, char **str);
+int	chdirr(char **env, char **av);
 #endif

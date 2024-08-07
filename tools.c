@@ -1,11 +1,11 @@
 #include "minishell.h"
-char	*get_path(char **envp)
+char	*get_path(char **envp,char *str)
 {
 	char	*path;
 	int i=0;
 	if (!envp || !(*envp))
 		return(NULL);
-	while (envp[i] && strncmp(envp[i], "PATH=", 5) != 0)
+	while (envp[i] && strncmp(envp[i], str, 5) != 0)
 		i++;
 	if (!envp[i])
 		return (NULL);

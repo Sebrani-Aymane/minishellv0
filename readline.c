@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 08:43:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/07 02:53:11 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
 {
 	char **env;
-	
+	int l;
 	env = joker(list);
     if (strcmp(builtin, "echo") == 0)
         echoo(av + 1);
@@ -25,12 +25,14 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
         pwdd(1);
     if (strcmp(builtin, "export") == 0)
 	{
-	    list = exportt_basic(env, av);
 		if (!(av[1]))
 			envpp(env);
+	    list = exportt_basic(env, av);
 	}
 	if (strcmp(builtin, "env") == 0)
     	envpp(env);
+	if (strcmp(builtin, "cd") == 0)
+		l = chdirr(env,av);
 return(list);
 }
 void excutefilepath(char **av,char *path,char **env)
