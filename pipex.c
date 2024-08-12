@@ -24,7 +24,7 @@ int	main(int ac, char **av, char **envp)
 		while (builtins[++j])
 		{
 			if (strcmp(av[0],builtins[j]) == 0)
-				list = execute_builtins(builtins[j],av,list);
+			list = execute_builtins(builtins[j],av,list);
 		}
 		free_double(builtins);
 	}

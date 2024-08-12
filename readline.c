@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/07 02:53:11 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/12 06:46:52 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,18 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
 	{
 		if (!(av[1]))
 			envpp(env);
-	    list = exportt_basic(env, av);
+		else
+	    	list = exportt_plus(av,list);
 	}
 	if (strcmp(builtin, "env") == 0)
     	envpp(env);
 	if (strcmp(builtin, "cd") == 0)
+	{
 		l = chdirr(env,av);
-return(list);
+		if (l != 0)
+			printf("%s: No such file or directory\n",av[1]);
+	}
+	return(list);
 }
 void excutefilepath(char **av,char *path,char **env)
 {

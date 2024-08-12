@@ -41,7 +41,7 @@ void envpp(char **env)
 	}
 }
 
-env_vars *exportt_basic(char **envp, char **av)
+/*env_vars *exportt_basic(char **envp, char **av)
 {
 	env_vars *tmp;
 	env_vars *list;
@@ -71,11 +71,14 @@ env_vars *exportt_basic(char **envp, char **av)
 	list = tmp;
     return (list);
 }
+*/
 int	chdirr(char **env,char **av)
 {
+	int res =0;
 	if(!av[1])
-		return(chdir(get_path(env,"HOME")),0);
-	else if(strcmp(av[0],"..") == 0)
-		return(chdir(".."),0);
-	return(1);
+		res = chdir(get_path(env,"HOME"));
+	else
+		res = chdir(av[1]);
+	return(res);
+
 }

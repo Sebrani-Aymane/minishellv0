@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/07 02:44:00 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/12 06:46:33 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char **joker(env_vars *list);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
 env_vars	*ft_lstlast(env_vars *lst);
 char	**split(char *str, char sep);
+env_vars *exportt_plus(char **av,env_vars *list);
 void	clear_strss(char **strs, int n);
 env_vars *list_init(char **variables);
 void	ft_lstadd_back(env_vars **lst, env_vars *last);
@@ -52,6 +53,6 @@ void excutefilepath(char **av,char *path,char **env);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
 int already_var(env_vars *list, char *str);
-env_vars *update_value(env_vars *list, char **str);
+env_vars *update_value(env_vars **list,char **str);
 int	chdirr(char **env, char **av);
 #endif
