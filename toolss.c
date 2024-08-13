@@ -1,4 +1,5 @@
 #include "minishell.h"
+#include <string.h>
 
 char	**split(char *str, char sep)
 {
@@ -76,7 +77,10 @@ char **joker(env_vars *list)
 	int j = 0;
     while (list && j < i)
     {
-        str = str_joiner(list->vars, "=");
+		if(!(list->var_value))
+			str = strdup(list->vars);
+		else
+        	str = str_joiner(list->vars, "=");
         ret[j] = str_joiner(str, list->var_value);
         free(str); 
 		j++;

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/12 06:46:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/13 06:30:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ int	count_words(char *str, char c);
 char	*return_word(char *str, char c);
 char **joker(env_vars *list);
 void	ft_lstadd_front(env_vars **lst, env_vars *next);
+char *ret(char *in);
 env_vars	*ft_lstlast(env_vars *lst);
+env_vars *append_to_list(env_vars *list,char **temp);
 char	**split(char *str, char sep);
 env_vars *exportt_plus(char **av,env_vars *list);
 void	clear_strss(char **strs, int n);

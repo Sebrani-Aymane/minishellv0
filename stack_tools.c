@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/12 06:59:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/13 06:49:12 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	ft_lstadd_back(env_vars **lst, env_vars *new)
 env_vars *exportt_plus(char **av,env_vars *list)
 {
 	env_vars *tmp;
-    env_vars *new_var;
-    char **temp;
+    char **temp; 
+	
     if (!list)
         return NULL;
 	tmp = list;
@@ -51,24 +51,25 @@ env_vars *exportt_plus(char **av,env_vars *list)
         return NULL;
 	if (already_var(list,temp[0]) && !temp[1])
 		return(tmp);
-	if (temp[0][ft_strlen(temp[0]) - 1] == '+')
-		{
-			list = update_value(&list,temp);
-			list->var_value = str_joiner(list->var_value,temp[1]);
-			printf("%s---------%s\n",list->vars,list->var_value);
-			return(list);
-		}
-	list = ft_lstlast(list);
-    new_var = malloc(sizeof(env_vars));
-    if (!new_var)
+	else if ((already_var(list,temp[0])) && temp[1]) 
 	{
-        free(temp);
-        return NULL; 
-    }
-    new_var->vars = temp[0];
-	new_var->var_value = temp[1];
-    new_var->next = NULL;
-    (list)->next = new_var;
+		if (temp[0][ft_strlen(temp[0]) - 1] == '+')
+			{
+				list = update_value(&list,temp);
+				if (!(already_var(list,temp[0])))
+					list = append_to_list(list,temp);
+				else
+					list->var_value = str_joiner(list->var_value,temp[1]);
+				return(list);
+			}
+		else
+		{
+			update_value(&list, temp);
+			list->var_value = strdup(temp[1]);
+		}
+		return(tmp);
+	}
+	list = append_to_list(list, temp);
 	list = tmp;
     return (list);
 }
@@ -76,7 +77,7 @@ int already_var(env_vars *list,char *str)
 {
 	while (list)
 	{
-		if (strcmp(list->vars,str) == 0)
+		if (strcmp(list->vars,str) == 0 || str[ft_strlen(str) - 1] == '+') 
 			return(1);
 		list = list->next;
 	}
@@ -84,10 +85,13 @@ int already_var(env_vars *list,char *str)
 }
 env_vars *update_value(env_vars **list,char **str)
 {
+	env_vars *tmp;
+	tmp = *list;
 	while((*list))
 	{
-		if(strcmp((*list)->vars, str[0]))
+		if(strcmp((*list)->vars, str[0]) == 0)
 			return (*list);
+		*list = (*list)->next;
 	}
-	return (NULL);
+	return (tmp);
 }
