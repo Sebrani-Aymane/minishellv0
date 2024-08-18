@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/13 06:49:12 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:57:03 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,17 @@ void	ft_lstadd_back(env_vars **lst, env_vars *new)
 env_vars *exportt_plus(char **av,env_vars *list)
 {
 	env_vars *tmp;
-    char **temp; 
+	env_vars *another_head;
+    char **temp;
 	
     if (!list)
         return NULL;
 	tmp = list;
+	another_head = list;
    	temp = split(av[1], '=');
     if (!temp)
         return NULL;
+	
 	if (already_var(list,temp[0]) && !temp[1])
 		return(tmp);
 	else if ((already_var(list,temp[0])) && temp[1]) 
@@ -56,10 +59,14 @@ env_vars *exportt_plus(char **av,env_vars *list)
 		if (temp[0][ft_strlen(temp[0]) - 1] == '+')
 			{
 				list = update_value(&list,temp);
-				if (!(already_var(list,temp[0])))
+				if (!(already_vars(list,temp[0])))
 					list = append_to_list(list,temp);
 				else
-					list->var_value = str_joiner(list->var_value,temp[1]);
+				{
+					update_value(&tmp,temp); 
+					tmp->var_value = str_joiner(tmp->var_value,temp[1]);
+					list = another_head;
+				}
 				return(list);
 			}
 		else
@@ -86,10 +93,15 @@ int already_var(env_vars *list,char *str)
 env_vars *update_value(env_vars **list,char **str)
 {
 	env_vars *tmp;
+	char	*appended;
 	tmp = *list;
+	
 	while((*list))
 	{
-		if(strcmp((*list)->vars, str[0]) == 0)
+		appended = strdup(str[0]);
+		if (appended[ft_strlen(appended) - 1] == '+')
+			appended[ft_strlen(appended) - 1] = '\0';
+		if(strcmp((*list)->vars, appended) == 0)
 			return (*list);
 		*list = (*list)->next;
 	}

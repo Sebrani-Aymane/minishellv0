@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/12 06:46:52 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/18 04:28:56 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
 	}
 	if (strcmp(builtin, "env") == 0)
     	envpp(env);
-	if (strcmp(builtin, "cd") == 0)
+	if (strncmp(builtin, "cd", 2) == 0)
 	{
 		l = chdirr(env,av);
 		if (l != 0)
@@ -48,6 +48,7 @@ void excutefilepath(char **av,char *path,char **env)
 	char *command_path;
 
 	int lenght = ft_strlen(av[0]);
+	printf("zbi\n");
 	command_path = malloc(lenght);
 	if (!command_path)
 		return;
@@ -64,9 +65,7 @@ void excutefilepath(char **av,char *path,char **env)
 			return;
 		to_excute = str_joiner(paths[i],command_path);
 		if (access(to_excute, X_OK) == 0)
-		{
 			execve(to_excute, av, env);
-		}
 		else
 			free(to_excute);
 		i++;

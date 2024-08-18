@@ -41,40 +41,9 @@ void envpp(char **env)
 	}
 }
 
-/*env_vars *exportt_basic(char **envp, char **av)
-{
-	env_vars *tmp;
-	env_vars *list;
-    env_vars *new_var;
-	
-    char **temp;
-    list = list_init(envp);
-    if (!list)
-        return NULL;
-	tmp = list;
-	if(!av[1])
-		return(list);
-    temp = split(av[1], '=');
-    if (!temp)
-        return NULL;
-	list = ft_lstlast(list);
-    new_var = malloc(sizeof(env_vars));
-    if (!new_var)
-	{
-        free(temp);
-        return NULL; 
-    }
-    new_var->vars = temp[0];
-	new_var->var_value = temp[1];
-    new_var->next = NULL;
-    (list)->next = new_var;
-	list = tmp;
-    return (list);
-}
-*/
 int	chdirr(char **env,char **av)
 {
-	int res =0;
+	int res =-1;
 	if(!av[1])
 		res = chdir(get_path(env,"HOME"));
 	else

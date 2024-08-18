@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/13 06:30:47 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/18 03:56:58 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void excutefilepath(char **av,char *path,char **env);
 void	copy_it(char *dest, char *src);
 char	*str_joiner(char *s1, char *s2);
 int already_var(env_vars *list, char *str);
+int already_vars(env_vars *list, char *str);
 env_vars *update_value(env_vars **list,char **str);
 int	chdirr(char **env, char **av);
 #endif
