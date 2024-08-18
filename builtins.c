@@ -44,8 +44,10 @@ void envpp(char **env)
 int	chdirr(char **env,char **av)
 {
 	int res =-1;
+
+
 	if(!av[1])
-		res = chdir(get_path(env,"HOME"));
+		res = chdir(get_path(env,"HOME="));
 	else
 		res = chdir(av[1]);
 	return(res);

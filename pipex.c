@@ -9,7 +9,6 @@ int	main(int ac, char **argv, char **envp)
 	int j;
 	int i;
 
-	i = 1;
 	list = list_init(envp);
 	str = get_path(envp,"PATH=");
 	(void)ac;
@@ -17,6 +16,7 @@ int	main(int ac, char **argv, char **envp)
 	char **av = NULL;
 	while (1)
 	{
+		i = 1;
 		j = -1;
 		char *cmd = readline("minishell $ ");
 		av = split (cmd,' ');
@@ -26,8 +26,10 @@ int	main(int ac, char **argv, char **envp)
 		while (builtins[++j])
 		{
 			if (strcmp(av[0],builtins[j]) == 0)
+			{
 				list = execute_builtins(builtins[j],av,list);
-			i = 0;
+				i = 0;
+			}
 		}
 		if (i)
 			excutefilepath(av,str,envp);
