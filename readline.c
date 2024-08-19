@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/18 04:38:35 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:42:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,22 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
 	int l;
 	env = joker(list);
     if (strcmp(builtin, "echo") == 0)
-        echoo(av + 1);
-    if (strcmp(builtin, "pwd") == 0) 
+        echoo(av);
+    else if (strcmp(builtin, "pwd") == 0) 
         pwdd(1);
-    if (strcmp(builtin, "export") == 0)
+    else if (strcmp(builtin, "export") == 0)
 	{
 		if (!(av[1]))
-			envpp(env);
+		{
+			list = exportt_plus(env,list);
+			envpp(list);
+		}
 		else
 	    	list = exportt_plus(av,list);
 	}
-	if (strcmp(builtin, "env") == 0)
-    	envpp(env);
-	if (strcmp(builtin, "cd") == 0)
+	else if (strcmp(builtin, "env") == 0)
+    	envpp(list);
+	else if (strcmp(builtin, "cd") == 0)
 	{
 		l = chdirr(env,av);
 		if (l == -1)
@@ -46,7 +49,11 @@ void excutefilepath(char **av,char *path,char **env)
 	int i=0;
 	char **paths;
 	char *command_path;
+	int pid;
 
+	pid = fork();
+	if (pid ==0)
+	{
 	int lenght = ft_strlen(av[0]);
 
 	command_path = malloc(lenght);
@@ -72,6 +79,10 @@ void excutefilepath(char **av,char *path,char **env)
 	}
 	free(paths);
 	free(command_path);
+	}
+	else
+		wait(0);
+		
 	return;
 
 }

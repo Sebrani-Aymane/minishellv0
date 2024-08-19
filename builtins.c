@@ -1,10 +1,10 @@
 #include "minishell.h"
 #include <stdio.h>
-void echoo(char **av)
+/*void echoo(char **av)
 {
-	int i =0;
+	int i =1;
 
-	if (strcmp(av[0],"-n") == 0)
+	if (av[1][1] == '-' && av[])
 	{	
 		while (av[i+1])
 		{
@@ -19,9 +19,38 @@ void echoo(char **av)
 			printf("%s",av[i]);
 			i++;
 		}
-		printf("/n");
+		printf("\n");
 	}
+}*/
+#include <stdio.h>
+#include <string.h>
+
+void echoo(char **av)
+{
+    int i = 1;         
+    int newline = 1; 
+
+
+    while (av[i] && strcmp(av[i], "-n") == 0)
+	{
+        newline = 0;
+        i++; 
+    }
+    while (av[i])
+	{
+        printf("%s", av[i]);
+        if (av[i + 1])
+		{ 
+            printf(" ");
+        }
+        i++;
+	}
+    if (newline)
+	{
+        printf("\n");
+    }
 }
+
 void pwdd(int a)
 {
 	char *pwd = NULL;
@@ -29,15 +58,18 @@ void pwdd(int a)
 	getcwd(pwd,PATH_MAX);
 	printf("%s",pwd);
 }
-void envpp(char **env)
+void envpp(env_vars *list)
 {
-	int i=0;
-	if (!env || !*env)
+
+	if (!list)
 		return;
-	while (env[i])
+	while (list)
 	{
-		printf("%s\n", env[i]);
-		i++;
+		printf("%s",list->vars);
+		if(list->var_value)
+			printf("=%s/n",list->var_value);
+		else if(list->var_value)
+		list = list->next;
 	}
 }
 

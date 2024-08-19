@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/18 03:56:58 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/19 02:39:58 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	clear_strss(char **strs, int n);
 env_vars *execute_builtins(char* builtin, char **av,env_vars *list);
 void echoo(char **av);
 void pwdd(int a);
-void envpp(char **env);
+void envpp(env_vars *list);
 int	ft_strlen(char *str);
 char	*get_path(char **envp,char *str);
 int	count_words(char *str, char c);
