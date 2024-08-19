@@ -6,12 +6,11 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:34 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/18 03:57:03 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:51:58 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <string.h>
 
 
 env_vars	*ft_lstlast(env_vars *lst)
@@ -51,7 +50,6 @@ env_vars *exportt_plus(char **av,env_vars *list)
    	temp = split(av[1], '=');
     if (!temp)
         return NULL;
-	
 	if (already_var(list,temp[0]) && !temp[1])
 		return(tmp);
 	else if ((already_var(list,temp[0])) && temp[1]) 
@@ -59,12 +57,13 @@ env_vars *exportt_plus(char **av,env_vars *list)
 		if (temp[0][ft_strlen(temp[0]) - 1] == '+')
 			{
 				list = update_value(&list,temp);
+				*temp = ret(*temp);
 				if (!(already_vars(list,temp[0])))
 					list = append_to_list(list,temp);
-				else
+				else if (already_vars(list,*temp))
 				{
-					update_value(&tmp,temp); 
-					tmp->var_value = str_joiner(tmp->var_value,temp[1]);
+					list = update_value(&tmp,temp); 
+					list->var_value = str_joiner(tmp->var_value,temp[1]);
 					list = another_head;
 				}
 				return(list);
@@ -76,10 +75,12 @@ env_vars *exportt_plus(char **av,env_vars *list)
 		}
 		return(tmp);
 	}
-	list = append_to_list(list, temp);
+	else 
+		list = append_to_list(list, temp);
 	list = tmp;
     return (list);
 }
+
 int already_var(env_vars *list,char *str)
 {
 	while (list)
@@ -90,6 +91,7 @@ int already_var(env_vars *list,char *str)
 	}
 	return(0);
 }
+
 env_vars *update_value(env_vars **list,char **str)
 {
 	env_vars *tmp;
@@ -106,4 +108,11 @@ env_vars *update_value(env_vars **list,char **str)
 		*list = (*list)->next;
 	}
 	return (tmp);
+}
+void check_key(char *str) // check the key it should start with _ pr alpha and should only be aloha numeric or 
+_
+{
+	if (!str)
+		return;
+	if (str[0] )
 }

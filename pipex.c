@@ -1,6 +1,11 @@
 #include "minishell.h"
 #include <readline/readline.h>
 
+void print_it(char **av)
+{
+	while(*av)
+		printf("%s\n",*(av++));
+}
 int	main(int ac, char **argv, char **envp)
 {
 	char **builtins;
