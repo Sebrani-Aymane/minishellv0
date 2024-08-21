@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/19 16:11:56 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:19:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "minishell.h"
 #include <sys/_types/_size_t.h>
 
-env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
+env_vars *execute_builtins(char* builtin, char **av, env_vars *list,char **env)
 {
-	char **env;
+	
 	int l;
-	env = joker(list);
+	
     if (strcmp(builtin, "echo") == 0)
         echoo(av);
     if (strcmp(builtin, "pwd") == 0) 
@@ -26,15 +26,12 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
     if (strcmp(builtin, "export") == 0)
 	{
 		if (!(av[1]))
-		{
-			list = exportt_plus(env,list);
-			list = envpp(list);
-		}
+			envpp(list);
 		else
-	    	list = exportt_plus(av,list);
+	    	export_all(list,av);
 	}
 	if (strcmp(builtin, "env") == 0)
-    	list = envpp(list);
+    	envpp(list);
 	if (strcmp(builtin, "cd") == 0)
 	{
 		l = chdirr(env,av);
@@ -43,6 +40,7 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list)
 	}
 	return(list);
 }
+
 void excutefilepath(char **av,char *path,char **env)
 {
 	char *to_excute;
@@ -86,6 +84,7 @@ void excutefilepath(char **av,char *path,char **env)
 	return;
 
 }
+
 void free_double(char **str)
 {
 	int j;

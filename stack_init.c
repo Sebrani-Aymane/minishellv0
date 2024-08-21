@@ -6,87 +6,70 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:23:32 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/05 06:41:54 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:37:56 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <string.h>
-/*
-env_vars *list_init(char **variables)
+
+char *get_till(char *str, char c)
 {
-	env_vars *list;
-	int i;
-	char **splited;
-	i = 0;
-	list = malloc(sizeof(env_vars));
-	if (!list)
+	int size = 0;
+	char *ret;
+	while(str[size] && str[size] != c)
+		size++;
+	ret = malloc(sizeof(char) * (size + 1));
+	if(!ret)
 		return(NULL);
-	if (variables == NULL || variables[i] == NULL)
-		return(NULL);
-	while(variables[i])
+	int i = 0;
+	while(i < size)
 	{
-		splited = split(variables[i], '=');
-		if (!splited)
-			return(printf("here"),NULL);
-		list->vars = splited[0];
-		list->var_value = splited[1];
-		list->next = malloc(sizeof(env_vars));
-		if (!list->next)
-			return NULL;
-		list = list->next;
-		ft_lstadd_back(&list, list->next);
-		printf("%p==========%s\n",list,splited[1]);
+		ret[i] = str[i];
 		i++;
-		clear_strss(splited, 2);
 	}
-	list->next = NULL;
-	return((list));
-	
+	ret[i] = '\0';
+	return(ret);
 }
-int main(int ac,char **av,char **env)
-{
-	(void) ac;
-	(void) av;
-	env_vars **list;
 
-	list = list_init(env);
-	while (list)
+void add_to_list(env_vars **head,env_vars *new)
+{
+	env_vars *temp = *head;
+	if(!*head)
 	{
-		printf("%s======%s\n",(*list)->vars,(*list)->var_value);
-		*list = (*list)->next;
+		new -> next = NULL;
+		*head = new;
 	}
-	return(0);
-	
+	else
+	{
+		while(temp  && temp -> next)
+			temp=temp -> next;
+		temp-> next = new;
+		new-> next =NULL;
+	}
 }
-*/
-#include "minishell.h"
 
-env_vars *list_init(char **variables)
+env_vars *list_init(char **env)
 {
-    env_vars *list = NULL;
-    env_vars *new_node;
-    int i = 0;
-    char **splited;
-
-	if (variables == NULL || variables[i] == NULL)
-    	return NULL;
-    while (variables[i])
-    {
-        splited = split(variables[i], '=');
-        if (!splited)
-            return NULL;
-        new_node = malloc(sizeof(env_vars));
-        if (!new_node)
-        {
-            clear_strss(splited, 2);
-            return NULL;
-        }
-        new_node->vars = splited[0];
-        new_node->var_value = splited[1];
-        new_node->next = NULL;
-        ft_lstadd_back(&list, new_node);
-        i++;
-    }
-    return list;
+	env_vars *new;
+	char *temp;
+	env_vars *temp_var;
+	new= NULL;
+	while(*env)
+	{
+		temp_var = malloc(sizeof(env_vars));
+		temp = strchr(*env,'=');
+		if(!temp)
+		{
+			temp_var ->vars = strdup(*env);
+			temp_var -> var_value = NULL;
+		}
+		else
+		{
+			temp_var -> vars = get_till(*env,'=');
+			temp_var -> var_value = strdup(temp + 1);
+		}
+		add_to_list(&new,temp_var);
+		env++;
+	}
+	return(new);
 }

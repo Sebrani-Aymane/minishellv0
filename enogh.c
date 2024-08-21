@@ -12,39 +12,11 @@ char *ret(char *in)
 	}
 	return(in);
 }
-env_vars *append_to_list(env_vars *list,char **temp)
+int	ft_isalnum(int c)
 {
-	env_vars *new_var;
-	env_vars *tmp;
-	char	*appended;
-
-	tmp = list;
-    new_var = malloc(sizeof(env_vars));
-    if (!new_var)
-	{
-        free(temp);
-        return NULL; 
-    }
-    new_var->vars = temp[0];
-	new_var->var_value = temp[1];
-	if (temp[0][ft_strlen(temp[0]) - 1] == '+')
-	{
-		appended = strdup(temp[0]);
-		appended[ft_strlen(appended) - 1] = '\0';
-		new_var->vars = appended;
-		new_var->var_value = temp[1];
-	}
-    new_var->next = NULL;
-	ft_lstadd_back(&list,new_var);
-    return (list);
-}
-int already_vars(env_vars *list,char *str)
-{
-	while (list)
-	{
-		if (strcmp(list->vars,str) == 0) 
-			return(1);
-		list = list->next;
-	}
-	return(0);
+	if (((c <= 122 && c >= 97) || (c <= 90 && c >= 65))
+		|| (c <= '9' && c >= '0'))
+		return (1);
+	else
+		return (0);
 }

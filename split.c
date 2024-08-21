@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   toolss.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 11:59:29 by asebrani          #+#    #+#             */
+/*   Updated: 2024/08/21 19:17:18 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <string.h>
 
@@ -28,6 +40,7 @@ char	**split(char *str, char sep)
 	strs[n] = NULL;
 	return (strs);
 }
+
 void	copy_it(char *dest, char *src)
 {	
 	if(!src)
@@ -36,12 +49,15 @@ void	copy_it(char *dest, char *src)
 		*(dest++) = *(src++);
 	*dest = '\0';
 }
+
 char	*str_joiner(char *s1, char *s2)
 {
 	char	*ret;
 
 	if (!s1)
 		return (strdup(s2));
+	if (!s2)
+		return(strdup(s1));
 	ret = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!ret)
 		return (NULL);
@@ -49,6 +65,7 @@ char	*str_joiner(char *s1, char *s2)
 	copy_it(ret + strlen(s1), s2);
 	return (ret);
 }
+
 int	ft_strlen(char *str)
 {
 	int i=0;
@@ -57,35 +74,4 @@ int	ft_strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
-}
-char **joker(env_vars *list)
-{
-    int i = 0;
-    char **ret = NULL;
-    env_vars *temp;
-    char *str;
-    temp = list;
-    while (list)
-    {
-        list = list->next;
-        i++;
-    }
-    list = temp;
-    ret = calloc((i + 1) , sizeof(char *));
-	if (!ret)
-		return NULL;
-	int j = 0;
-    while (list && j < i)
-    {
-		if(!(list->var_value))
-			str = strdup(list->vars);
-		else
-        	str = str_joiner(list->vars, "=");
-        ret[j] = str_joiner(str, list->var_value);
-        free(str); 
-		j++;
-        list = list->next;
-    }
-	ret[j] = NULL;
-    return ret; 
 }

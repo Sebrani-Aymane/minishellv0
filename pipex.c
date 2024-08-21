@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/20 11:59:01 by asebrani          #+#    #+#             */
+/*   Updated: 2024/08/21 18:14:28 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include <readline/readline.h>
 
@@ -32,7 +44,7 @@ int	main(int ac, char **argv, char **envp)
 		{
 			if (strcmp(av[0],builtins[j]) == 0)
 			{
-				list = execute_builtins(builtins[j],av,list);
+				list = execute_builtins(builtins[j],av,list,envp);
 				i = 0;
 			}
 		}
