@@ -12,30 +12,26 @@
 
 #include "minishell.h"
 
-env_vars	*ft_lstlast(env_vars *lst)
+void 	export_with_plus(char *str,env_vars *env)
 {
-	if (lst && lst->next)
+	char *key;
+	char *value;
+
+	value = strchr(str,'=');
+	key = get_till(str,'+');
+	while(env && env->next)
 	{
-		while (lst && lst->next)
-			lst = lst->next;
+		if (strcmp(env->vars,key) == 0)
+		{
+			env->var_value = strdup(value);
+			break;
+		}
+		env = env->next;
 	}
-	return (lst);
+	free(key);
+	valid_to_add_plus(env, str);
 }
 
-void	ft_lstadd_back(env_vars **lst, env_vars *new)
-{
-	env_vars *position;
-
-	if (!lst || !new)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		position = ft_lstlast(*lst);
-		position->next = new;
-	}
-}
 void first_in(char *str,env_vars *env)
 {
 	env_vars *new;
@@ -59,4 +55,29 @@ void first_in(char *str,env_vars *env)
 		add_to_list(&env,new);
 		
 	}
+}
+void valid_to_add_plus(env_vars *env,char *str)
+{
+	char *temp;
+	env_vars *tmp;
+	env_vars *new;
+	char *key;
+
+	key = get_till(str,'+');
+	tmp = env;
+	new = malloc(sizeof(env_vars));
+	temp = strchr(str, '=');
+	if (check_key(key))
+	{
+		if (strcmp(env->vars,key) == 0)
+			env -> var_value = str_joiner(env->var_value,temp+1);
+		else
+		{
+			new-> vars = get_till(str,'+');
+			new-> var_value = strdup(temp+1);
+			add_to_list(&tmp,new);
+		}
+	}
+	else
+		return;
 }

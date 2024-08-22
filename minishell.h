@@ -29,10 +29,12 @@ typedef struct env_vars_t{
 	struct env_vars_t *next;
 }  env_vars;
 void	clear_strss(char **strs, int n);
+void 	export_with_plus(char *av,env_vars *env);
 env_vars *execute_builtins(char* builtin, char **av,env_vars *list,char **env);
 void valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);
 void first_in(char *str,env_vars *env);
+void valid_to_add_plus(env_vars *env,char *str);
 env_vars *export_if_plus(char **input,env_vars *list);
 void add_to_list(env_vars **head,env_vars *new);
 int	ft_isalnum(int c);

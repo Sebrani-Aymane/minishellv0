@@ -77,7 +77,7 @@ void export_all(env_vars *env,char **av)
 	{
 		if(strchr(av[i],'+'))
 			export_with_plus(av[i],env);	
-		if (!(strchr(av[i],'=') ))
+		else if (!(strchr(av[i],'=') ))
 			first_in(av[i],env);
 		else if (strchr(av[i],'='))
 			export_it(env,av[i]);
