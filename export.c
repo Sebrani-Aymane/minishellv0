@@ -23,8 +23,7 @@ void valid_to_add(env_vars *env,char *str)
 	tmp = env;
 	new = malloc(sizeof(env_vars));
 	temp = strchr(str, '=');
-	printf("[[[[[[[[%s]]]]]]]]",key);
-	if (!check_key(key))
+	if (check_key(key))
 	{
 		if (strcmp(env->vars,key) == 0)
 			env -> var_value = strdup(temp + 1);
@@ -59,9 +58,9 @@ void export_it(env_vars *env, char *str)
 	key = get_till(str,'=');
 	while(env && env->next)
 	{
-		if (strcmp(env->vars,key) == 0 && !value)
+		if (strcmp(env->vars,key) == 0)
 		{
-			env->var_value = strdup("");
+			env->var_value = strdup(value);
 			break;
 		}
 		env = env->next;
@@ -76,10 +75,11 @@ void export_all(env_vars *env,char **av)
 
 	while (av[i])
 	{
-		//if(strchr(av[]))	
-		if (!(strchr(av[i],'=')))
+		if(strchr(av[i],'+'))
+			export_with_plus(av[i],env);	
+		if (!(strchr(av[i],'=') ))
 			first_in(av[i],env);
-		if (strchr(av[i],'='))
+		else if (strchr(av[i],'='))
 			export_it(env,av[i]);
 		i++;
 	}

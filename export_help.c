@@ -47,7 +47,12 @@ void first_in(char *str,env_vars *env)
 	else
 	{
 		while (env && env ->next)
+		{
+			if (strcmp(env->vars,str) == 0)
+				return(free(new));
 			env = env->next;
+
+		}
 		new->vars = strdup(str);
 		new->var_value = strdup("");
 		new->next = NULL;
