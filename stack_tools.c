@@ -25,13 +25,13 @@ int check_key(char *str)
 {
 	int i = 0;
 	if (!str)
-		return (printf("'%s' not a valid identifier/n", str),0);
+		return (printf("'%s' not a valid identifier1\n", str),0);
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
 		return (0);
 	while (str[i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
-			return(0);
+			return(printf("'%s' not a valid identifier2\n",str),0);
 		i++;
 	}
 	return(1);

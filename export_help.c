@@ -39,7 +39,6 @@ void	ft_lstadd_back(env_vars **lst, env_vars *new)
 void first_in(char *str,env_vars *env)
 {
 	env_vars *new;
-	
 	if(!check_key(str))
 		return;
 	new = malloc(sizeof(env_vars));
@@ -47,11 +46,17 @@ void first_in(char *str,env_vars *env)
 		return;
 	else
 	{
-		while (env)
+		while (env && env ->next)
+		{
+			if (strcmp(env->vars,str) == 0)
+				return(free(new));
 			env = env->next;
+
+		}
 		new->vars = strdup(str);
 		new->var_value = strdup("");
 		new->next = NULL;
-		add_to_list(&env,env);
+		add_to_list(&env,new);
+		
 	}
 }

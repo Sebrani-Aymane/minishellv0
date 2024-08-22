@@ -12,7 +12,8 @@
 
 
 #include "minishell.h"
-#include <sys/_types/_size_t.h>
+#include <sys/wait.h>
+
 
 env_vars *execute_builtins(char* builtin, char **av, env_vars *list,char **env)
 {

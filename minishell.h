@@ -17,12 +17,10 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/syslimits.h>
 #include <unistd.h>
-#include <limits.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <libc.h> //remove it after adding libft functions
+ //remove it after adding libft functions
 
 typedef struct env_vars_t{
 	char *vars;

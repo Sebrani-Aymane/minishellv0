@@ -14,8 +14,7 @@ char *ret(char *in)
 }
 int	ft_isalnum(int c)
 {
-	if (((c <= 122 && c >= 97) || (c <= 90 && c >= 65))
-		|| (c <= '9' && c >= '0'))
+	if (((c <= 122 && c >= 97) || (c <= 90 && c >= 65)))
 		return (1);
 	else
 		return (0);
