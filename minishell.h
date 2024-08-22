@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/21 22:57:19 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/22 23:19:13 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct env_vars_t{
 }  env_vars;
 void	clear_strss(char **strs, int n);
 void 	export_with_plus(char *av,env_vars *env);
+int ft_strcmp(char *str,char *str1);
 env_vars *execute_builtins(char* builtin, char **av,env_vars *list,char **env);
 void valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);

@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/21 23:07:33 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/22 23:54:45 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,16 @@ void valid_to_add(env_vars *env,char *str)
 	temp = strchr(str, '=');
 	if (check_key(key))
 	{
-		if (strcmp(env->vars,key) == 0)
-			env -> var_value = strdup(temp + 1);
-		else
+		if (strcmp(env->vars,key) == 0 && !temp)
+			return;
+		else if (strcmp(env->vars,key) == 0 && temp)
 		{
 			new-> vars = get_till(str,'=');
 			new-> var_value = strdup(temp+1);
 			add_to_list(&tmp,new);
+			return;
 		}
+			env -> var_value = strdup(temp + 1);
 	}
 	else
 		return;
@@ -60,8 +62,8 @@ void export_it(env_vars *env, char *str)
 	{
 		if (strcmp(env->vars,key) == 0)
 		{
-			env->var_value = strdup(value);
 			break;
+			env->var_value = strdup(value);
 		}
 		env = env->next;
 	}

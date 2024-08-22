@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 19:40:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/21 23:05:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/22 23:47:22 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void 	export_with_plus(char *str,env_vars *env)
 	{
 		if (strcmp(env->vars,key) == 0)
 		{
-			env->var_value = strdup(value);
 			break;
+			env->var_value = strdup(value);
 		}
 		env = env->next;
 	}
@@ -34,26 +34,30 @@ void 	export_with_plus(char *str,env_vars *env)
 
 void first_in(char *str,env_vars *env)
 {
+	int	flag = 0;
+
 	env_vars *new;
 	if(!check_key(str))
 		return;
 	new = malloc(sizeof(env_vars));
 	if(!new)
 		return;
-	else
+	while (env && env ->next)
 	{
-		while (env && env ->next)
+		if (ft_strcmp(env->vars,str) == 0)
 		{
-			if (strcmp(env->vars,str) == 0)
-				return(free(new));
-			env = env->next;
-
+			flag = 1;
+			return(free(new));
 		}
+		env = env->next;
+
+	}
+	if (!flag)
+	{
 		new->vars = strdup(str);
 		new->var_value = strdup("");
 		new->next = NULL;
 		add_to_list(&env,new);
-		
 	}
 }
 void valid_to_add_plus(env_vars *env,char *str)
