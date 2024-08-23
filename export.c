@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/23 18:42:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/23 22:02:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,6 @@ void valid_to_add(env_vars *env,char *str)
 		return;
 }
 
-env_vars *get_node(env_vars **list,char *str)
-{
-	while((*list))
-	{
-		if(strcmp((*list)->vars, str) == 0)
-			return (*list);
-		*list = (*list)->next;
-	}
-	return (NULL);
-}
-
 void 	export_it(env_vars *env,char *str)
 {
 	char *key;
@@ -54,9 +43,12 @@ void 	export_it(env_vars *env,char *str)
 	key = get_till(str,'=');
 	while(env && env->next)
 	{
-		if (ft_strcmp(env->vars,key) == 0 || ft_strcmp(env->next->vars,key) == 0 )
+		if (ft_strcmp(env->vars,key) == 0 || ft_strcmp(env->next->vars,key) == 0)
 		{
-			env->var_value = strdup(value);
+			if (ft_strcmp(env->vars,key) == 0)
+				env->var_value = strdup(value + 1);
+			else if (ft_strcmp(env->next->vars,key) == 0)
+				env->next->var_value= strdup(value + 1);
 			return;
 		}
 		else
