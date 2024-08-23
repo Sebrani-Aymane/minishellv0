@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:58:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/22 23:54:45 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:42:28 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,12 @@ void valid_to_add(env_vars *env,char *str)
 	tmp = env;
 	new = malloc(sizeof(env_vars));
 	temp = strchr(str, '=');
-	if (check_key(key))
+	if (check_key(key) && (temp + 1))
 	{
-		if (strcmp(env->vars,key) == 0 && !temp)
-			return;
-		else if (strcmp(env->vars,key) == 0 && temp)
-		{
-			new-> vars = get_till(str,'=');
-			new-> var_value = strdup(temp+1);
-			add_to_list(&tmp,new);
-			return;
-		}
-			env -> var_value = strdup(temp + 1);
+		new-> vars = get_till(str,'=');
+		new-> var_value = strdup(temp+1);
+		add_to_list(&tmp,new);
+		return;
 	}
 	else
 		return;
@@ -48,10 +42,10 @@ env_vars *get_node(env_vars **list,char *str)
 			return (*list);
 		*list = (*list)->next;
 	}
-	return (*list);
+	return (NULL);
 }
 
-void export_it(env_vars *env, char *str)
+void 	export_it(env_vars *env,char *str)
 {
 	char *key;
 	char *value;
@@ -60,11 +54,12 @@ void export_it(env_vars *env, char *str)
 	key = get_till(str,'=');
 	while(env && env->next)
 	{
-		if (strcmp(env->vars,key) == 0)
+		if (ft_strcmp(env->vars,key) == 0 || ft_strcmp(env->next->vars,key) == 0 )
 		{
-			break;
 			env->var_value = strdup(value);
+			return;
 		}
+		else
 		env = env->next;
 	}
 	free(key);
