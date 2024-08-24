@@ -35,6 +35,7 @@ env_vars *execute_builtins(char* builtin, char **av,env_vars *list,char **env);
 void valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);
 void first_in(char *str,env_vars *env);
+void unset(env_vars *env, char **av);
 void valid_to_add_plus(env_vars *env,char *str);
 env_vars *export_if_plus(char **input,env_vars *list);
 void add_to_list(env_vars **head,env_vars *new);

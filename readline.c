@@ -39,7 +39,10 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list,char **env)
 		if (l == -1)
 			printf("%s: No such file or directory\n",av[1]);
 	}
+	if (strcmp(builtin, "unset"))
+		unset(list,av);
 	return(list);
+
 }
 
 void excutefilepath(char **av,char *path,char **env)

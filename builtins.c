@@ -53,7 +53,6 @@ void pwdd(int a)
 	(void) a;
 	pwd = getcwd(NULL,0);
 	printf("%s\n",pwd);
-	free(pwd);
 }
 env_vars *envpp(env_vars *list)
 {

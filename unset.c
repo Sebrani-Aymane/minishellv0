@@ -12,15 +12,31 @@
 
 #include "minishell.h"
 
-void unsett(env_vars *env,char **av)
+void unset(env_vars *env, char **av)
 {
-	int i = 1;
+    int i = 1;
 
-	while (av[i])
-	{
-		if (check_key(av[i]))
-		{
-			
-		}
-	}
+    while (av[i])
+    {
+        env_vars *current = env;
+        env_vars *previous = NULL;
+
+        while (current)
+        {
+            if (ft_strcmp(current->vars, av[i]) == 0)
+            {
+                if (previous == NULL)
+                    env = current->next; 
+                else
+                    previous->next = current->next;
+                free(current->vars);
+                free(current->var_value);
+                free(current);
+                break;
+            }
+            previous = current;
+            current = current->next;
+        }
+        i++;
+    }
 }

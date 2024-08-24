@@ -36,7 +36,6 @@ void first_in(char *str,env_vars *env)
 {
 	int flag = 0;
 	env_vars *new;
-
 	if(!check_key(str))
 		return;
 	new = malloc(sizeof(env_vars));
