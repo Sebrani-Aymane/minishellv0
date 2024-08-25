@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:20:46 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/22 23:19:13 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:28:06 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,20 @@ typedef struct env_vars_t{
 	struct env_vars_t *next;
 }  env_vars;
 void	clear_strss(char **strs, int n);
+void execute_the_thing(char **av,char **env,env_vars *list);
 void 	export_with_plus(char *av,env_vars *env);
 int ft_strcmp(char *str,char *str1);
 env_vars *execute_builtins(char* builtin, char **av,env_vars *list,char **env);
 void valid_to_add(env_vars *env,char *str);
 char *get_till(char *str, char c);
+void piipe(env_vars *list,char **av,char **env);
+void exitt(env_vars *env, char **av);
 void first_in(char *str,env_vars *env);
+void execute_the_thing(char **av,char **env,env_vars *list);
 void unset(env_vars *env, char **av);
 void valid_to_add_plus(env_vars *env,char *str);
 env_vars *export_if_plus(char **input,env_vars *list);
-void add_to_list(env_vars **head,env_vars *new);
+void add_to_list(env_vars **head,env_vars *newe);
 int	ft_isalnum(int c);
 int check_key(char *str);
 void echoo(char **av);

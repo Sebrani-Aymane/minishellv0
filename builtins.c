@@ -1,27 +1,19 @@
-#include "minishell.h"
-#include <stdio.h>
-/*void echoo(char **av)
-{
-	int i =1;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/25 15:35:28 by asebrani          #+#    #+#             */
+/*   Updated: 2024/08/25 15:40:54 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	if (av[1][1] == '-' && av[])
-	{	
-		while (av[i+1])
-		{
-			printf("%s",av[i]);
-			i++;
-		}
-	}
-	else
-	{
-		while (av[i])
-		{
-			printf("%s",av[i]);
-			i++;
-		}
-		printf("\n");
-	}
-}*/
+#include "minishell.h"
+#include <errno.h>
+#include <stdio.h>
+
 void echoo(char **av)
 {
     int i = 1;         
@@ -47,13 +39,18 @@ void echoo(char **av)
     }
 }
 
+#include <errno.h>
 void pwdd(int a)
 {
 	char *pwd = NULL;
 	(void) a;
 	pwd = getcwd(NULL,0);
-	printf("%s\n",pwd);
+	if(pwd)
+		printf("%s\n",pwd);
+	else
+		write(2,"getcwd faild\n",14);
 }
+
 env_vars *envpp(env_vars *list)
 {
 	env_vars *tmp;

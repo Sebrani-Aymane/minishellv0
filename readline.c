@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 02:21:00 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/21 20:19:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:22:38 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,30 @@ env_vars *execute_builtins(char* builtin, char **av, env_vars *list,char **env)
 	
     if (strcmp(builtin, "echo") == 0)
         echoo(av);
-    if (strcmp(builtin, "pwd") == 0) 
+    else if (strcmp(builtin, "pwd") == 0) 
         pwdd(1);
-    if (strcmp(builtin, "export") == 0)
+    else if (strcmp(builtin, "export") == 0)
 	{
 		if (!(av[1]))
 			envpp(list);
 		else
 	    	export_all(list,av);
 	}
-	if (strcmp(builtin, "env") == 0)
+	else if (strcmp(builtin, "env") == 0)
     	envpp(list);
-	if (strcmp(builtin, "cd") == 0)
+	else if (strcmp(builtin, "cd") == 0)
 	{
 		l = chdirr(env,av);
 		if (l == -1)
 			printf("%s: No such file or directory\n",av[1]);
 	}
-	if (strcmp(builtin, "unset"))
+	else if (strcmp(builtin, "unset") == 0)
+	{
 		unset(list,av);
+	}
+	else if (strcmp(builtin, "exit") == 0)
+		exitt (list,av);	
 	return(list);
-
 }
 
 void excutefilepath(char **av,char *path,char **env)
@@ -83,7 +86,7 @@ void excutefilepath(char **av,char *path,char **env)
 	free(command_path);
 	}
 	else
-		wait(0);
+		wait(NULL);
 		
 	return;
 

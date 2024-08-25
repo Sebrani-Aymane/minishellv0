@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 22:03:15 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/24 02:41:38 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/24 02:22:24 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,4 @@ void unset(env_vars *env, char **av)
         }
         i++;
     }
-}
-void exitt(env_vars *env, char **av)
-{
-    int num = 0;
-    env_vars *temp;
-    while(env)
-    {
-        temp = env->next;  
-        free(env->vars);             
-        free(env->var_value);        
-        free(env);                   
-        env = temp;
-    }
-    if (av && av[1])
-    {
-        num = atoi(av[1]);
-    }
-
-    exit(num);
 }

@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:01 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/21 18:14:28 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/25 16:10:37 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <readline/readline.h>
 
-void print_it(char **av)
-{
-	while(*av)
-		printf("%s\n",*(av++));
-}
 int	main(int ac, char **argv, char **envp)
 {
-	char **builtins;
+
 	env_vars *list;
-	char *str;
 	int j;
 	int i;
 
 	list = list_init(envp);
-	str = get_path(envp,"PATH=");
 	(void)ac;
 	(void)argv;
 	char **av = NULL;
@@ -39,18 +32,7 @@ int	main(int ac, char **argv, char **envp)
 		av = split (cmd,' ');
 		if (!av || !(*av))
 			return(0);
-		builtins = split("cd echo pwd export unset env exit", ' ');
-		while (builtins[++j])
-		{
-			if (strcmp(av[0],builtins[j]) == 0)
-			{
-				list = execute_builtins(builtins[j],av,list,envp);
-				i = 0;
-			}
-		}
-		if (i)
-			excutefilepath(av,str,envp);
-		free_double(builtins);
+		piipe(list,av,envp);
 	}
 	return(0);
 }
