@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 11:59:01 by asebrani          #+#    #+#             */
-/*   Updated: 2024/08/25 16:10:37 by asebrani         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:45:26 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int ac, char **argv, char **envp)
 {
 
 	env_vars *list;
-	int j;
 	int i;
 
 	list = list_init(envp);
@@ -27,7 +26,6 @@ int	main(int ac, char **argv, char **envp)
 	while (1)
 	{
 		i = 1;
-		j = -1;
 		char *cmd = readline("minishell $ ");
 		av = split (cmd,' ');
 		if (!av || !(*av))
